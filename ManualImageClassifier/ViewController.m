@@ -39,6 +39,34 @@
     
     [self setNewImage];
 }
+- (void)runPythonScript
+{
+    NSTask* task = [[NSTask alloc] init] ;
+    task.launchPath = [@"~/Developer/TestImages" stringByStandardizingPath];
+    NSString *scriptPath = [[NSBundle mainBundle] pathForResource:@"MyScript" ofType:@"py"];
+    task.arguments = [NSArray arrayWithObjects: scriptPath, nil];
+    
+    // NSLog breaks if we don't do this...
+    [task setStandardInput: [NSPipe pipe]];
+    
+    NSPipe *stdOutPipe = nil;
+    stdOutPipe = [NSPipe pipe];
+    [task setStandardOutput:stdOutPipe];
+    
+    NSPipe* stdErrPipe = nil;
+    stdErrPipe = [NSPipe pipe];
+    [task setStandardError: stdErrPipe];
+    
+    [task launch];
+    
+    //NSData* data = [[stdOutPipe fileHandleForReading] readDataToEndOfFile];
+    
+    [task waitUntilExit];
+    
+    //NSInteger exitCode = task.terminationStatus;
+    
+    
+}
 - (IBAction)back:(NSButton *)sender {
     self.goodButton.enabled = YES;
     self.badButton.enabled = YES;
@@ -83,6 +111,11 @@
 
 -(void)viewDidAppear{
     [super viewDidAppear];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[@"~/Developer/TestImages/Bad" stringByStandardizingPath] isDirectory:nil]) {
+    [[NSFileManager defaultManager] createDirectoryAtPath:[@"~/Developer/TestImages/Bad" stringByStandardizingPath] withIntermediateDirectories:YES attributes:nil error:nil];
+    [[NSFileManager defaultManager] createDirectoryAtPath:[@"~/Developer/TestImages/Good" stringByStandardizingPath] withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    //[self runPythonScript];
     NSArray* dirs = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[@"~/Developer/TestImages" stringByStandardizingPath]error:nil];
     self.imArray = [[NSMutableArray alloc] init];
     self.imageIndex = 0;
