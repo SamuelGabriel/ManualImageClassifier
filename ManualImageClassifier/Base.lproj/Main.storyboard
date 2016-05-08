@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6198" systemVersion="14A297b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15A284" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6198"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -641,12 +642,12 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModuleProvider=""/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>
-        <!--Window Controller - Window-->
+        <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
@@ -667,11 +668,74 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
-                    <view key="view" id="m2S-Jp-Qdl">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" id="m2S-Jp-Qdl" customClass="MainView">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NOi-nT-8aI" customClass="MainImageView">
+                                <rect key="frame" x="20" y="20" width="440" height="230"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="440" id="MiG-wR-Bg3"/>
+                                    <constraint firstAttribute="height" constant="230" id="sWA-Hm-Rso"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="pCv-RI-1ag"/>
+                            </imageView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vHA-d5-xOa">
+                                <rect key="frame" x="-6" y="-7" width="64" height="32"/>
+                                <buttonCell key="cell" type="push" title="Bad" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eSk-p9-6Cb">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent"></string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="badPressed:" target="XfG-lQ-9wD" id="B6K-p1-mi0"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gPj-Vw-c7T">
+                                <rect key="frame" x="413" y="-7" width="73" height="32"/>
+                                <buttonCell key="cell" type="push" title="Good" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nKu-Ul-mhV">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent"></string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="GoodPressed:" target="XfG-lQ-9wD" id="p95-ga-TlM"/>
+                                </connections>
+                            </button>
+                            <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="33o-bv-Lhj">
+                                <rect key="frame" x="185" y="-7" width="112" height="32"/>
+                                <buttonCell key="cell" type="push" title="Rückgängig" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="30D-Pb-hkM">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="back:" target="XfG-lQ-9wD" id="X3J-vl-x8a"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="gPj-Vw-c7T" secondAttribute="bottom" id="69f-lg-73L"/>
+                            <constraint firstItem="33o-bv-Lhj" firstAttribute="baseline" secondItem="gPj-Vw-c7T" secondAttribute="baseline" id="AO8-AS-XRv"/>
+                            <constraint firstItem="33o-bv-Lhj" firstAttribute="centerX" secondItem="NOi-nT-8aI" secondAttribute="centerX" id="C1w-WP-aYt"/>
+                            <constraint firstAttribute="bottom" secondItem="vHA-d5-xOa" secondAttribute="bottom" id="KHg-T6-M12"/>
+                            <constraint firstAttribute="bottom" secondItem="NOi-nT-8aI" secondAttribute="bottom" constant="20" symbolic="YES" id="Ql3-vt-3uO"/>
+                            <constraint firstItem="vHA-d5-xOa" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="b2I-zz-5zw"/>
+                            <constraint firstItem="NOi-nT-8aI" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="gNH-ro-djJ"/>
+                            <constraint firstItem="NOi-nT-8aI" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="giM-dl-abw"/>
+                            <constraint firstAttribute="trailing" secondItem="NOi-nT-8aI" secondAttribute="trailing" constant="20" symbolic="YES" id="mI7-o5-97i"/>
+                            <constraint firstAttribute="trailing" secondItem="gPj-Vw-c7T" secondAttribute="trailing" id="ttr-lC-WHp"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="backButton" destination="33o-bv-Lhj" id="r4j-Aq-jEg"/>
+                        <outlet property="badButton" destination="vHA-d5-xOa" id="Gdw-m5-QUY"/>
+                        <outlet property="goodButton" destination="gPj-Vw-c7T" id="8gf-sJ-QZ4"/>
+                        <outlet property="imageView" destination="NOi-nT-8aI" id="aEF-WW-MaM"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
